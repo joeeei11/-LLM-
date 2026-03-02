@@ -1,0 +1,74 @@
+<!-- pages/yearly/yearly.wxml -->
+<view class="container fade-in">
+  <view class="flex-between" style="margin-bottom:24rpx;">
+    <view class="nav-arrow" bindtap="prevYear">‹</view>
+    <view class="year-title">{{year}} 年度总览</view>
+    <view class="nav-arrow" bindtap="nextYear">›</view>
+  </view>
+
+  <!-- 年度统计卡片 -->
+  <view class="year-stats flex-between">
+    <view class="year-stat-item card">
+      <view class="year-stat-num">{{yearStats.totalDone}}</view>
+      <view class="year-stat-label">完成任务</view>
+    </view>
+    <view class="year-stat-item card">
+      <view class="year-stat-num">{{yearStats.maxStreak}}</view>
+      <view class="year-stat-label">最长连续</view>
+    </view>
+    <view class="year-stat-item card">
+      <view class="year-stat-num">{{yearStats.avgRate}}%</view>
+      <view class="year-stat-label">平均完成率</view>
+    </view>
+  </view>
+
+  <!-- 热力图 -->
+  <view class="card heatmap-card">
+    <view class="card-title" style="margin-bottom:16rpx;">活跃热力图</view>
+    <view class="heatmap-months flex-between">
+      <text wx:for="{{monthLabels}}" wx:key="*this" class="month-label">{{item}}</text>
+    </view>
+    <scroll-view scroll-x class="heatmap-scroll">
+      <view class="heatmap-grid">
+        <view class="heatmap-row" wx:for="{{heatmapRows}}" wx:key="index">
+          <view class="heatmap-cell" wx:for="{{item}}" wx:for-item="cell" wx:key="date"
+                style="background:{{cell.color}}"
+                bindtap="onCellTap" data-date="{{cell.date}}" data-score="{{cell.score}}">
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="heatmap-legend flex-row" style="justify-content:flex-end;gap:8rpx;margin-top:12rpx;">
+      <text style="font-size:20rpx;color:var(--text-hint);">少</text>
+      <view class="legend-cell" style="background:#EBEDF0"></view>
+      <view class="legend-cell" style="background:#C6E48B"></view>
+      <view class="legend-cell" style="background:#7BC96F"></view>
+      <view class="legend-cell" style="background:#239A3B"></view>
+      <view class="legend-cell" style="background:#196127"></view>
+      <text style="font-size:20rpx;color:var(--text-hint);">多</text>
+    </view>
+  </view>
+
+  <!-- 年度目标进度 -->
+  <view class="section" wx:if="{{yearGoals.length > 0}}">
+    <view class="section-title">年度目标进度</view>
+    <view class="card" wx:for="{{yearGoals}}" wx:key="_id" style="margin-bottom:12rpx;">
+      <view class="flex-between" style="margin-bottom:8rpx;">
+        <view class="flex-row" style="gap:8rpx;">
+          <text>{{item.icon}}</text>
+          <text style="font-weight:600;font-size:28rpx;">{{item.title}}</text>
+        </view>
+        <text class="tag {{item.progress>=100?'tag-success':item.progress>=50?'tag-primary':'tag-warning'}}">
+          {{item.progress}}%
+        </text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-bar-fill" style="width:{{item.progress > 100 ? 100 : item.progress}}%"></view>
+      </view>
+      <view class="flex-between" style="margin-top:8rpx;">
+        <text style="font-size:22rpx;color:var(--text-hint);">{{item.startDate}}</text>
+        <text style="font-size:22rpx;color:var(--text-hint);">{{item.endDate}}</text>
+      </view>
+    </view>
+  </view>
+</view>

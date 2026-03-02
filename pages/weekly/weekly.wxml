@@ -1,0 +1,53 @@
+<!-- pages/weekly/weekly.wxml - Apple 风格周视图 -->
+<view class="container fade-in">
+  <view class="week-header flex-between">
+    <view class="nav-arrow" bindtap="prevWeek">‹</view>
+    <view class="week-title">{{weekRange}}</view>
+    <view class="nav-arrow" bindtap="nextWeek">›</view>
+  </view>
+
+  <!-- 周完成率 -->
+  <view class="week-summary card">
+    <view class="flex-between">
+      <view>
+        <view class="summary-label">本周完成率</view>
+        <view class="summary-value" style="background:var(--primary-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">{{weekRate}}%</view>
+      </view>
+      <view>
+        <view class="summary-label">已完成 / 总计</view>
+        <view class="summary-value">{{weekDone}} / {{weekTotal}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 七日圆圈 + 柱状图 -->
+  <view class="chart-card card">
+    <view class="card-title" style="margin-bottom:24rpx;">每日完成情况</view>
+    <view class="bar-chart flex-between">
+      <view class="bar-col" wx:for="{{days}}" wx:key="date">
+        <view class="bar-wrapper">
+          <view class="bar-fill {{item.isToday ? 'bar-fill-today' : ''}}" style="height:{{item.barHeight}}%;"></view>
+        </view>
+        <view class="bar-label {{item.isToday ? 'today' : ''}}">{{item.weekDay}}</view>
+        <view class="bar-count">{{item.done}}/{{item.total}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 本周目标进展 -->
+  <view class="section" wx:if="{{weekGoals.length > 0}}">
+    <view class="section-title">🎯 本周目标进展</view>
+    <view class="card fade-in stagger-{{index + 1}}" wx:for="{{weekGoals}}" wx:key="_id" style="margin-bottom:12rpx;">
+      <view class="flex-between" style="margin-bottom:12rpx;">
+        <view class="flex-row" style="gap:10rpx;">
+          <text>{{item.icon}}</text>
+          <text style="font-weight:600;font-size:30rpx;">{{item.title}}</text>
+        </view>
+        <text style="font-weight:700;font-size:28rpx;color:var(--primary);">{{item.progress}}%</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-bar-fill" style="width:{{item.progress}}%"></view>
+      </view>
+    </view>
+  </view>
+</view>

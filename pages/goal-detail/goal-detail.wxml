@@ -1,0 +1,71 @@
+<!-- pages/goal-detail/goal-detail.wxml -->
+<view class="container fade-in" wx:if="{{goal}}">
+  <!-- 目标信息卡 -->
+  <view class="goal-info card">
+    <view class="flex-between">
+      <view class="flex-row" style="gap:12rpx;">
+        <view class="goal-cat-badge" style="background:{{catColor}}20;">{{catIcon}}</view>
+        <view>
+          <view class="goal-title-main">{{goal.title}}</view>
+          <view class="tag {{goal.status==='active'?'tag-primary':'tag-success'}}" style="margin-top:8rpx;">
+            {{goal.status==='active'?'进行中':'已完成'}}
+          </view>
+        </view>
+      </view>
+      <view class="more-btn" bindtap="showActions">⋯</view>
+    </view>
+    <view wx:if="{{goal.description}}" class="goal-desc">{{goal.description}}</view>
+    <view class="flex-between" style="margin-top:16rpx;">
+      <text class="date-range">{{goal.startDate}} ~ {{goal.endDate}}</text>
+      <text style="font-weight:700;color:var(--primary);">{{goal.progress}}%</text>
+    </view>
+    <view class="progress-bar" style="margin-top:8rpx;">
+      <view class="progress-bar-fill" style="width:{{goal.progress}}%;background:{{catColor}};"></view>
+    </view>
+  </view>
+
+  <!-- 关联任务 -->
+  <view class="section">
+    <view class="flex-between" style="margin-bottom:16rpx;">
+      <view class="section-title" style="margin-bottom:0;">📝 关联任务 ({{tasks.length}})</view>
+      <view class="btn-secondary" style="padding:8rpx 20rpx;font-size:24rpx;" bindtap="showAddTask">+ 任务</view>
+    </view>
+
+    <view wx:if="{{tasks.length > 0}}">
+      <view class="task-item card" wx:for="{{tasks}}" wx:key="_id"
+            bindtap="toggleTask" data-id="{{item._id}}">
+        <view class="flex-row">
+          <view class="task-check {{item.done?'checked':''}}">
+            <text wx:if="{{item.done}}" class="check-icon">✓</text>
+          </view>
+          <view class="flex-1" style="margin-left:16rpx;">
+            <view class="task-t {{item.done?'line-through':''}}">{{item.title}}</view>
+            <view class="task-sub">{{item.date}} {{item.startTime || ''}}</view>
+          </view>
+          <view class="priority-dot priority-{{item.priority||3}}"></view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="empty-state" style="padding:60rpx;">
+      <view class="empty-state-text">暂无任务，点击上方按钮添加</view>
+    </view>
+  </view>
+</view>
+
+<!-- 添加任务弹窗 -->
+<view class="overlay" wx:if="{{showModal}}" bindtap="hideModal"></view>
+<view class="modal slide-up" wx:if="{{showModal}}">
+  <view class="modal-title">添加任务</view>
+  <view class="form-group">
+    <input class="input-field" placeholder="任务名称" value="{{newTitle}}" bindinput="onTitleInput" />
+  </view>
+  <view class="form-group">
+    <picker mode="date" value="{{newDate}}" bindchange="onDateChange">
+      <view class="input-field">日期: {{newDate}}</view>
+    </picker>
+  </view>
+  <view class="modal-actions flex-between">
+    <view class="btn-ghost" bindtap="hideModal" style="flex:1;text-align:center;margin-right:16rpx;">取消</view>
+    <view class="btn-primary" bindtap="saveTask" style="flex:1;text-align:center;">保存</view>
+  </view>
+</view>

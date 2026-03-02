@@ -1,0 +1,307 @@
+/* pages/index/index.wxss - 首页 Apple 风格 */
+
+.header-section {
+  padding: 8rpx 0 28rpx;
+}
+
+.greeting-row {
+  align-items: flex-start;
+}
+
+.greeting-text {
+  font-size: 48rpx;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4rpx;
+  letter-spacing: -1rpx;
+  line-height: 1.2;
+}
+
+.date-text {
+  font-size: 28rpx;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+/* 得分环 - 大号 */
+.score-ring {
+  position: relative;
+  width: 136rpx;
+  height: 136rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 136rpx;
+  height: 136rpx;
+}
+
+.score-value {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -1rpx;
+}
+
+.score-label {
+  font-size: 18rpx;
+  color: var(--text-quaternary);
+  font-weight: 600;
+  letter-spacing: 0.5rpx;
+}
+
+/* 统计条 - 毛玻璃风格 */
+.stat-bar {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: 32rpx 40rpx;
+  margin-bottom: 28rpx;
+  box-shadow: var(--shadow-md);
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-num {
+  font-size: 44rpx;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1rpx;
+}
+
+.stat-desc {
+  font-size: 22rpx;
+  color: var(--text-quaternary);
+  margin-top: 4rpx;
+  font-weight: 500;
+  letter-spacing: 0.5rpx;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 56rpx;
+  background: var(--separator);
+}
+
+/* 快捷入口 - Apple 风格网格 */
+.quick-actions {
+  margin-bottom: 36rpx;
+  padding: 0 8rpx;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 16rpx 0;
+  transition: all 0.2s ease;
+}
+
+.action-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42rpx;
+  margin-bottom: 10rpx;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.action-btn:active .action-icon {
+  transform: scale(0.88);
+  box-shadow: var(--shadow-xs);
+}
+
+.action-text {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.3rpx;
+}
+
+/* 卡片操作 */
+.card-action {
+  font-size: 26rpx;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* 任务列表 - 卡片流 */
+.task-list {
+  margin-top: 8rpx;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx !important;
+  margin-bottom: 10rpx;
+  border-radius: var(--radius-lg) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 优先级侧边条 */
+.task-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16rpx;
+  bottom: 16rpx;
+  width: 6rpx;
+  border-radius: 3rpx;
+  background: var(--primary);
+  opacity: 0.6;
+}
+
+.task-item.priority-high::before { background: var(--danger); opacity: 1; }
+.task-item.priority-mid::before { background: var(--warning); opacity: 1; }
+.task-item.priority-low::before { background: var(--success); opacity: 0.6; }
+
+.task-item.task-done {
+  opacity: 0.5;
+}
+
+.task-item.task-done::before { opacity: 0.2; }
+
+.task-content {
+  flex: 1;
+  min-width: 0;
+  margin-left: 8rpx;
+}
+
+.task-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.3rpx;
+}
+
+.task-title.line-through {
+  text-decoration: line-through;
+  color: var(--text-quaternary);
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.task-time {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.task-goal {
+  font-size: 20rpx;
+  padding: 2rpx 12rpx;
+}
+
+/* 目标横向滚动 - Apple Carousel */
+.goal-scroll {
+  margin: 0 -32rpx;
+  padding: 0 32rpx;
+}
+
+.goal-list {
+  white-space: nowrap;
+  padding: 8rpx 0 12rpx;
+}
+
+.goal-card {
+  display: inline-block;
+  width: 280rpx;
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: 28rpx;
+  margin-right: 16rpx;
+  box-shadow: var(--shadow-md);
+  vertical-align: top;
+  transition: all 0.2s ease;
+}
+
+.goal-card:active {
+  transform: scale(0.96);
+}
+
+.goal-icon {
+  font-size: 40rpx;
+  margin-bottom: 16rpx;
+}
+
+.goal-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.3rpx;
+}
+
+.goal-progress-bar {
+  height: 8rpx;
+  background: var(--bg-input);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 10rpx;
+}
+
+.goal-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.goal-progress-text {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  font-weight: 700;
+}
+
+/* 新建任务弹窗增强 */
+.priority-selector {
+  gap: 16rpx;
+}
+
+.priority-option {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 14rpx 28rpx;
+  border-radius: var(--radius-full);
+  background: var(--bg-input);
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.priority-option.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  box-shadow: 0 2rpx 12rpx rgba(79, 124, 255, 0.15);
+}

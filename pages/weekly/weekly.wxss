@@ -1,0 +1,104 @@
+/* pages/weekly/weekly.wxss - Apple 风格周视图 */
+
+.week-header { padding: 12rpx 0 28rpx; }
+
+.week-title {
+  font-size: 34rpx;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: -0.5rpx;
+}
+
+/* 周统计 */
+.week-summary {
+  margin-bottom: 20rpx;
+  padding: 32rpx !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.summary-label {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+  margin-bottom: 6rpx;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1rpx;
+}
+
+.summary-value {
+  font-size: 40rpx;
+  font-weight: 800;
+  letter-spacing: -1rpx;
+}
+
+/* 每日七圆 + 柱状图 */
+.chart-card {
+  padding: 32rpx 24rpx !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.bar-chart {
+  align-items: flex-end;
+  height: 340rpx;
+  padding: 0 4rpx;
+}
+
+.bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* 顶部圆圈指示器 */
+.bar-col::before {
+  content: '';
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  margin-bottom: 16rpx;
+}
+
+.bar-wrapper {
+  width: 36rpx;
+  height: 220rpx;
+  background: var(--bg-input);
+  border-radius: 18rpx;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.bar-fill {
+  width: 100%;
+  border-radius: 18rpx;
+  transition: height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-height: 6rpx;
+  background: var(--primary-gradient) !important;
+}
+
+.bar-fill-today {
+  background: var(--primary-gradient) !important;
+  box-shadow: 0 2rpx 12rpx rgba(79, 124, 255, 0.3);
+}
+
+.bar-label {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+  margin-top: 14rpx;
+  font-weight: 600;
+}
+
+.bar-label.today {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.bar-count {
+  font-size: 18rpx;
+  color: var(--text-quaternary);
+  margin-top: 4rpx;
+  font-weight: 500;
+}

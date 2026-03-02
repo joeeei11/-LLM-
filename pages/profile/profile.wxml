@@ -1,0 +1,141 @@
+<!-- pages/profile/profile.wxml - 个人中心 -->
+<view class="container fade-in">
+  <!-- 用户信息 -->
+  <view class="user-card card">
+    <view class="flex-row" style="gap:20rpx;">
+      <view class="avatar">🧑‍💻</view>
+      <view class="flex-1">
+        <view class="user-name">PlanMate 用户</view>
+        <view class="user-slogan">每天进步一点点</view>
+      </view>
+    </view>
+    <view class="user-stats flex-between" style="margin-top:24rpx;">
+      <view class="u-stat">
+        <view class="u-stat-num">{{totalGoals}}</view>
+        <view class="u-stat-label">目标</view>
+      </view>
+      <view class="u-stat">
+        <view class="u-stat-num">{{totalTasks}}</view>
+        <view class="u-stat-label">任务</view>
+      </view>
+      <view class="u-stat">
+        <view class="u-stat-num">{{streak}}</view>
+        <view class="u-stat-label">连续天</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI 配置 -->
+  <view class="section">
+    <view class="section-title">⚙️ AI 配置</view>
+    <view class="card ai-config-card">
+
+      <!-- API 提供商选择 -->
+      <view class="setting-item">
+        <view class="setting-label">AI 服务商</view>
+        <view class="provider-selector">
+          <view class="provider-option {{apiProvider === 'qianwen' ? 'active' : ''}}"
+                bindtap="setProvider" data-provider="qianwen">
+            <view class="provider-icon">🌐</view>
+            <view class="provider-name">通义千问</view>
+          </view>
+          <view class="provider-option {{apiProvider === 'gemini' ? 'active' : ''}}"
+                bindtap="setProvider" data-provider="gemini">
+            <view class="provider-icon">💎</view>
+            <view class="provider-name">Gemini</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="divider"></view>
+
+      <!-- API Key -->
+      <view class="setting-item">
+        <view class="flex-between" style="margin-bottom:8rpx;">
+          <view class="setting-label">API Key</view>
+          <view class="toggle-key" bindtap="toggleKeyVisible">{{showKey ? '🔒 隐藏' : '👁️ 显示'}}</view>
+        </view>
+        <view class="api-key-input-wrap">
+          <input class="api-key-input" 
+                 placeholder="{{apiProvider === 'gemini' ? '输入 Gemini API Key' : '输入通义千问 API Key'}}" 
+                 value="{{apiKey}}"
+                 bindinput="onApiKeyInput" 
+                 password="{{!showKey}}"
+                 adjust-position="{{true}}" />
+        </view>
+        <view class="setting-hint" style="margin-top:8rpx;">
+          <text wx:if="{{apiProvider === 'qianwen'}}">在阿里云百炼平台 (bailian.console.aliyun.com) 获取</text>
+          <text wx:if="{{apiProvider === 'gemini'}}">在 Google AI Studio (aistudio.google.com) 获取</text>
+        </view>
+      </view>
+
+      <view class="divider"></view>
+
+      <!-- 模型选择 -->
+      <view class="setting-item">
+        <view class="setting-label" style="margin-bottom:8rpx;">模型选择</view>
+        <view class="model-list">
+          <view class="model-option {{currentModel === item.id ? 'active' : ''}}" 
+                wx:for="{{modelList}}" wx:key="id"
+                bindtap="setModel" data-model="{{item.id}}">
+            <view class="model-name">{{item.name}}</view>
+            <view class="model-check" wx:if="{{currentModel === item.id}}">✓</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="divider"></view>
+
+      <!-- 连接测试 -->
+      <view class="setting-item">
+        <view class="test-btn {{testing ? 'loading' : ''}}" bindtap="testConnection">
+          {{testing ? '测试中...' : '🔗 测试连接'}}
+        </view>
+        <view class="test-result {{testStatus}}" wx:if="{{testMessage}}">{{testMessage}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="section">
+    <view class="section-title">📋 功能</view>
+    <view class="card">
+      <view class="menu-item flex-between" bindtap="goGoals">
+        <view class="flex-row" style="gap:12rpx;"><text>🎯</text><text>目标管理</text></view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item flex-between" bindtap="goYearly">
+        <view class="flex-row" style="gap:12rpx;"><text>📅</text><text>年度总览</text></view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item flex-between" bindtap="goWeekly">
+        <view class="flex-row" style="gap:12rpx;"><text>📊</text><text>周视图</text></view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item flex-between" bindtap="exportData">
+        <view class="flex-row" style="gap:12rpx;"><text>📤</text><text>导出数据</text></view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item flex-between" bindtap="goFeedback">
+        <view class="flex-row" style="gap:12rpx;"><text>💬</text><text>意见反馈</text></view>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 数据管理 -->
+  <view class="section">
+    <view class="card">
+      <view class="menu-item flex-between" style="color:var(--danger);" bindtap="clearData">
+        <view class="flex-row" style="gap:12rpx;"><text>🗑️</text><text>清除所有数据</text></view>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-text">PlanMate v1.1.0 · 目标规划助手</view>
+</view>

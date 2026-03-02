@@ -1,0 +1,89 @@
+/* pages/yearly/yearly.wxss - Apple 风格年视图 */
+
+.year-title {
+  font-size: 38rpx;
+  font-weight: 800;
+  letter-spacing: -0.5rpx;
+}
+
+/* 年度统计 - 磨砂卡片 */
+.year-stats {
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.year-stat-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 8rpx !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.year-stat-num {
+  font-size: 40rpx;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1rpx;
+}
+
+.year-stat-label {
+  font-size: 22rpx;
+  color: var(--text-quaternary);
+  margin-top: 4rpx;
+  font-weight: 600;
+  letter-spacing: 0.5rpx;
+}
+
+/* 热力图卡片 */
+.heatmap-card {
+  padding: 28rpx !important;
+  overflow: hidden;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.heatmap-months {
+  margin-bottom: 12rpx;
+  padding: 0 4rpx;
+}
+
+.month-label {
+  font-size: 20rpx;
+  color: var(--text-quaternary);
+  font-weight: 600;
+}
+
+.heatmap-scroll {
+  width: 100%;
+}
+
+.heatmap-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.heatmap-row {
+  display: flex;
+  gap: 4rpx;
+}
+
+.heatmap-cell {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 4rpx;
+  transition: transform 0.15s ease;
+}
+
+.heatmap-cell:active {
+  transform: scale(1.5);
+}
+
+.legend-cell {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 4rpx;
+}

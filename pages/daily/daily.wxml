@@ -1,0 +1,90 @@
+<!-- pages/daily/daily.wxml - Apple 风格日视图 -->
+<view class="container fade-in">
+  <!-- 日期导航 -->
+  <view class="date-nav flex-between">
+    <view class="nav-arrow" bindtap="prevDay">‹</view>
+    <view class="date-center" bindtap="pickDate">
+      <view class="date-main">{{currentDateDisplay}}</view>
+      <view class="date-sub">{{currentWeekDay}} {{isToday ? '· 今天' : ''}}</view>
+    </view>
+    <view class="nav-arrow" bindtap="nextDay">›</view>
+  </view>
+
+  <!-- 日进度 -->
+  <view class="day-progress card">
+    <view class="flex-between">
+      <view>
+        <view class="progress-label">完成度</view>
+        <view class="progress-value">{{dayScore}}%</view>
+      </view>
+      <view class="progress-detail">
+        <text class="done-count">{{doneCount}}</text>
+        <text class="total-count"> / {{totalCount}} 项</text>
+      </view>
+    </view>
+    <view class="progress-bar" style="margin-top:16rpx;">
+      <view class="progress-bar-fill" style="width:{{dayScore}}%"></view>
+    </view>
+  </view>
+
+  <!-- 时间线任务列表 -->
+  <view class="timeline" wx:if="{{tasks.length > 0}}">
+    <view class="timeline-item fade-in stagger-{{index < 5 ? index + 1 : 5}}" wx:for="{{tasks}}" wx:key="_id">
+      <view class="timeline-dot {{item.done ? 'done' : ''}}"></view>
+      <view class="timeline-line" wx:if="{{index < tasks.length - 1}}"></view>
+      <view class="timeline-card card {{item.done ? 'task-done' : ''}}"
+            bindtap="toggleTask" data-id="{{item._id}}">
+        <view class="flex-between">
+          <view class="flex-1">
+            <view class="task-title {{item.done ? 'line-through' : ''}}">{{item.title}}</view>
+            <view class="task-meta flex-row" style="gap:10rpx;margin-top:8rpx;">
+              <text wx:if="{{item.startTime}}" class="task-time-badge">
+                🕐 {{item.startTime}}{{item.endTime ? ' - ' + item.endTime : ''}}
+              </text>
+              <text wx:if="{{item.goalTitle}}" class="tag tag-primary" style="font-size:20rpx;">{{item.goalTitle}}</text>
+            </view>
+          </view>
+          <view class="task-check {{item.done ? 'checked' : ''}}">
+            <view wx:if="{{item.done}}" class="check-icon">✓</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <view class="empty-state-icon">☀️</view>
+    <view class="empty-state-title">一天之计在于晨</view>
+    <view class="empty-state-text">这天还没有任务安排\n点击下方按钮开始规划吧</view>
+    <view class="btn-primary" style="margin-top:32rpx;" bindtap="addTaskForDay">✏️ 添加任务</view>
+  </view>
+</view>
+
+<!-- FAB -->
+<view class="fab" bindtap="addTaskForDay">+</view>
+
+<!-- 添加任务弹窗 -->
+<view class="overlay" wx:if="{{showAddModal}}" bindtap="hideModal"></view>
+<view class="modal" wx:if="{{showAddModal}}">
+  <view class="modal-title">添加任务</view>
+  <view class="form-group">
+    <input class="input-field" placeholder="任务名称" value="{{newTitle}}" bindinput="onTitleInput" focus="{{showAddModal}}" />
+  </view>
+  <view class="form-group flex-row" style="gap:16rpx;">
+    <picker mode="time" value="{{newStartTime}}" bindchange="onStartTimeChange" style="flex:1;">
+      <view class="input-field">🕐 {{newStartTime || '开始时间'}}</view>
+    </picker>
+    <picker mode="time" value="{{newEndTime}}" bindchange="onEndTimeChange" style="flex:1;">
+      <view class="input-field">🕕 {{newEndTime || '结束时间'}}</view>
+    </picker>
+  </view>
+  <view class="form-group" wx:if="{{goalList.length > 0}}">
+    <picker range="{{goalList}}" range-key="title" bindchange="onGoalPick">
+      <view class="input-field">🎯 {{selectedGoalTitle || '关联目标 (可选)'}}</view>
+    </picker>
+  </view>
+  <view class="modal-actions flex-between">
+    <view class="btn-ghost" bindtap="hideModal" style="flex:1;text-align:center;margin-right:16rpx;">取消</view>
+    <view class="btn-primary" bindtap="saveTask" style="flex:1;text-align:center;">保存</view>
+  </view>
+</view>

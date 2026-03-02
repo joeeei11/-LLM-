@@ -1,0 +1,496 @@
+/* app.wxss - PlanMate 全局样式 · Apple-inspired Design System */
+
+/* ====== 设计令牌 (Design Tokens) ====== */
+page {
+  /* 主色调 - 效率蓝 */
+  --primary: #4F7CFF;
+  --primary-light: #EBF0FF;
+  --primary-dark: #3A5FCC;
+  --primary-gradient: linear-gradient(135deg, #4F7CFF 0%, #6C9BFF 50%, #9DBDFF 100%);
+
+  /* 语义色 */
+  --success: #34C759;
+  --success-light: #E8F8ED;
+  --warning: #FF9F0A;
+  --warning-light: #FFF4E0;
+  --danger: #FF3B30;
+  --danger-light: #FFEBEA;
+  --purple: #AF52DE;
+  --purple-light: #F3E8FA;
+  --teal: #5AC8FA;
+  --teal-light: #E5F6FE;
+
+  /* 莫兰迪灰阶 */
+  --text-primary: #1D1D1F;
+  --text-secondary: #6E6E73;
+  --text-tertiary: #AEAEB2;
+  --text-quaternary: #C7C7CC;
+
+  /* 背景 */
+  --bg-page: #F2F2F7;
+  --bg-card: #FFFFFF;
+  --bg-card-secondary: #F9F9FB;
+  --bg-input: #F2F2F7;
+  --bg-grouped: #FFFFFF;
+
+  /* 分割线 & 边框 */
+  --separator: rgba(60, 60, 67, 0.06);
+  --separator-opaque: #E5E5EA;
+
+  /* 阴影 - 分层系统 */
+  --shadow-xs: 0 1rpx 3rpx rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 16rpx 48rpx rgba(0, 0, 0, 0.16);
+  --shadow-primary: 0 4rpx 24rpx rgba(79, 124, 255, 0.25);
+
+  /* 圆角 */
+  --radius-xs: 8rpx;
+  --radius-sm: 12rpx;
+  --radius-md: 16rpx;
+  --radius-lg: 24rpx;
+  --radius-xl: 32rpx;
+  --radius-full: 999rpx;
+
+  /* 间距 */
+  --space-xs: 8rpx;
+  --space-sm: 12rpx;
+  --space-md: 16rpx;
+  --space-lg: 24rpx;
+  --space-xl: 32rpx;
+
+  /* 字体 */
+  font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', 'PingFang SC', 'Helvetica Neue', sans-serif;
+  font-size: 28rpx;
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ====== 通用布局 ====== */
+.container {
+  padding: 24rpx 32rpx;
+  padding-bottom: 40rpx;
+  min-height: 100vh;
+}
+
+.flex-row { display: flex; align-items: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-1 { flex: 1; }
+
+/* ====== Apple 风格卡片 ====== */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 32rpx;
+  margin-bottom: 16rpx;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.2s ease;
+}
+
+.card:active {
+  transform: scale(0.985);
+}
+
+.card-elevated {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 32rpx;
+  margin-bottom: 16rpx;
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.card-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.5rpx;
+}
+
+/* ====== Apple 风格按钮 ====== */
+.btn-primary {
+  background: var(--primary-gradient);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 22rpx 48rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: var(--shadow-primary);
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: 1rpx;
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+  opacity: 0.88;
+  box-shadow: 0 2rpx 12rpx rgba(79, 124, 255, 0.15);
+}
+
+.btn-secondary {
+  background: var(--primary-light);
+  color: var(--primary);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 18rpx 36rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:active { transform: scale(0.95); opacity: 0.8; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--primary);
+  border: 2rpx solid rgba(79, 124, 255, 0.3);
+  border-radius: var(--radius-full);
+  padding: 18rpx 36rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-ghost:active { background: var(--primary-light); }
+
+/* ====== 标签 ====== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 16rpx;
+  border-radius: var(--radius-full);
+  font-size: 22rpx;
+  font-weight: 600;
+  letter-spacing: 0.3rpx;
+}
+
+.tag-primary { background: var(--primary-light); color: var(--primary); }
+.tag-success { background: var(--success-light); color: var(--success); }
+.tag-warning { background: var(--warning-light); color: var(--warning); }
+.tag-danger { background: var(--danger-light); color: var(--danger); }
+.tag-purple { background: var(--purple-light); color: var(--purple); }
+
+/* ====== 输入框 - Apple 磨砂风格 ====== */
+.input-field {
+  background: var(--bg-input);
+  border-radius: var(--radius-md);
+  padding: 24rpx 28rpx;
+  font-size: 28rpx;
+  color: var(--text-primary);
+  width: 100%;
+  box-sizing: border-box;
+  border: 2rpx solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.input-field:focus {
+  border-color: var(--primary);
+  background: #fff;
+}
+
+.textarea-field {
+  background: var(--bg-input);
+  border-radius: var(--radius-md);
+  padding: 24rpx 28rpx;
+  font-size: 28rpx;
+  color: var(--text-primary);
+  width: 100%;
+  min-height: 200rpx;
+  box-sizing: border-box;
+  border: 2rpx solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+/* ====== 进度条 - 渐变填充 ====== */
+.progress-bar {
+  height: 10rpx;
+  background: var(--bg-input);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--primary-gradient);
+  transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ====== 空状态 - Apple 风格 ====== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 60rpx;
+}
+
+.empty-state-icon {
+  font-size: 120rpx;
+  margin-bottom: 24rpx;
+  opacity: 0.8;
+  animation: floatBounce 3s ease-in-out infinite;
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16rpx); }
+}
+
+.empty-state-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12rpx;
+}
+
+.empty-state-text {
+  font-size: 28rpx;
+  color: var(--text-tertiary);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ====== 分割线 ====== */
+.divider {
+  height: 1rpx;
+  background: var(--separator);
+  margin: 16rpx 0;
+}
+
+/* ====== 浮动按钮 - 毛玻璃 ====== */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 200rpx;
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52rpx;
+  font-weight: 300;
+  box-shadow: var(--shadow-primary), var(--shadow-lg);
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fab:active {
+  transform: scale(0.88) rotate(90deg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ====== 动画系统 ====== */
+.fade-in {
+  animation: fadeInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUpSpring 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) both;
+}
+
+@keyframes slideUpSpring {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.scale-in {
+  animation: scaleIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 交错动画：卡片列表 */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+
+/* ====== 遮罩层 - 毛玻璃 ====== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20rpx);
+  z-index: 999;
+  animation: fadeIn 0.25s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ====== 弹窗 - Apple Sheet ====== */
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-card);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 40rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
+  z-index: 1000;
+  box-shadow: var(--shadow-xl);
+  animation: slideUpSpring 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) both;
+}
+
+.modal::before {
+  content: '';
+  display: block;
+  width: 72rpx;
+  height: 8rpx;
+  background: var(--separator-opaque);
+  border-radius: 4rpx;
+  margin: 0 auto 28rpx;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 36rpx;
+  letter-spacing: 1rpx;
+}
+
+/* ====== 列表 - Apple 分组样式 ====== */
+.list-group {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  border-bottom: 1rpx solid var(--separator);
+  transition: background 0.15s ease;
+}
+
+.list-item:last-child { border-bottom: none; }
+.list-item:active { background: var(--bg-input); }
+
+/* ====== Section ====== */
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 16rpx;
+  text-transform: uppercase;
+  letter-spacing: 1rpx;
+}
+
+.section-subtitle {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+}
+
+/* ====== 导航箭头 ====== */
+.nav-arrow {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.nav-arrow:active {
+  transform: scale(0.9);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* ====== 完成勾选 ====== */
+.task-check {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 3rpx solid var(--separator-opaque);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.task-check.checked {
+  background: var(--success);
+  border-color: var(--success);
+  animation: checkBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes checkBounce {
+  0% { transform: scale(0.6); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.check-icon {
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+/* ====== 优先级指示器 ====== */
+.priority-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.priority-1 { background: var(--danger); box-shadow: 0 0 8rpx rgba(255, 59, 48, 0.4); }
+.priority-2 { background: var(--warning); box-shadow: 0 0 8rpx rgba(255, 159, 10, 0.4); }
+.priority-3 { background: var(--success); box-shadow: 0 0 8rpx rgba(52, 199, 89, 0.4); }
+
+/* ====== 表单 ====== */
+.form-group { margin-bottom: 24rpx; }
+.label {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12rpx;
+  letter-spacing: 0.3rpx;
+}
+.picker-arrow { color: var(--text-tertiary); font-size: 28rpx; }
+.modal-actions { margin-top: 32rpx; gap: 16rpx; }

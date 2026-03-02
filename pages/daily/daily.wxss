@@ -1,0 +1,150 @@
+/* pages/daily/daily.wxss - Apple 风格日视图 */
+
+/* 日期导航 */
+.date-nav {
+  padding: 12rpx 0 28rpx;
+}
+
+.date-center {
+  text-align: center;
+}
+
+.date-main {
+  font-size: 40rpx;
+  font-weight: 800;
+  letter-spacing: -0.5rpx;
+}
+
+.date-sub {
+  font-size: 26rpx;
+  color: var(--text-tertiary);
+  margin-top: 4rpx;
+  font-weight: 500;
+}
+
+/* 日进度 - 大号卡片 */
+.day-progress {
+  margin-bottom: 28rpx;
+  padding: 32rpx !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.progress-label {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  letter-spacing: 1rpx;
+  text-transform: uppercase;
+}
+
+.progress-value {
+  font-size: 48rpx;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1rpx;
+}
+
+.done-count {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: var(--success);
+}
+
+.total-count {
+  font-size: 28rpx;
+  color: var(--text-quaternary);
+  font-weight: 500;
+}
+
+/* 时间线 - Apple 风格 */
+.timeline {
+  position: relative;
+  padding-left: 48rpx;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 16rpx;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -48rpx;
+  top: 30rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 4rpx solid var(--primary-light);
+  z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 4rpx rgba(79, 124, 255, 0.1);
+}
+
+.timeline-dot.done {
+  background: var(--success);
+  border-color: var(--success-light);
+  box-shadow: 0 0 0 4rpx rgba(52, 199, 89, 0.1);
+}
+
+.timeline-line {
+  position: absolute;
+  left: -41rpx;
+  top: 56rpx;
+  width: 6rpx;
+  height: calc(100% - 36rpx);
+  background: linear-gradient(to bottom, var(--separator-opaque), transparent);
+  border-radius: 3rpx;
+}
+
+.timeline-card {
+  margin-left: 8rpx;
+  padding: 24rpx 28rpx !important;
+  border-radius: var(--radius-lg) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16rpx;
+  bottom: 16rpx;
+  width: 6rpx;
+  border-radius: 3rpx;
+  background: var(--primary);
+  opacity: 0.5;
+}
+
+.timeline-card.task-done {
+  opacity: 0.5;
+}
+
+.timeline-card.task-done::before {
+  background: var(--success);
+  opacity: 0.3;
+}
+
+.task-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  letter-spacing: 0.3rpx;
+}
+
+.task-title.line-through {
+  text-decoration: line-through;
+  color: var(--text-quaternary);
+}
+
+.task-time-badge {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+  background: var(--bg-input);
+  padding: 6rpx 14rpx;
+  border-radius: var(--radius-full);
+  font-weight: 500;
+}

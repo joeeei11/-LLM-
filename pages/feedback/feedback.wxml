@@ -1,0 +1,33 @@
+<!-- pages/feedback/feedback.wxml -->
+<view class="container fade-in">
+  <view class="page-title">💬 意见反馈</view>
+  <view class="page-desc">你的反馈是我们改进的动力</view>
+
+  <view class="card" style="margin-top:24rpx;">
+    <view class="form-group">
+      <view class="label">反馈类型</view>
+      <view class="type-selector flex-row" style="gap:12rpx;">
+        <view class="type-option {{feedbackType==='bug'?'active':''}}" bindtap="setType" data-t="bug">🐛 Bug</view>
+        <view class="type-option {{feedbackType==='feature'?'active':''}}" bindtap="setType" data-t="feature">💡 功能建议</view>
+        <view class="type-option {{feedbackType==='other'?'active':''}}" bindtap="setType" data-t="other">📝 其他</view>
+      </view>
+    </view>
+
+    <view class="form-group">
+      <view class="label">详细描述</view>
+      <textarea class="textarea-field" placeholder="请描述你的问题或建议..."
+                value="{{content}}" bindinput="onContentInput"
+                maxlength="500" style="min-height:240rpx;" />
+      <view class="char-count">{{content.length}}/500</view>
+    </view>
+
+    <view class="form-group">
+      <view class="label">联系方式（可选）</view>
+      <input class="input-field" placeholder="微信号或邮箱" value="{{contact}}" bindinput="onContactInput" />
+    </view>
+
+    <view class="btn-primary" style="width:100%;text-align:center;margin-top:16rpx;" bindtap="submitFeedback">
+      提交反馈
+    </view>
+  </view>
+</view>

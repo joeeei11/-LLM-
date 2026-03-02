@@ -1,0 +1,83 @@
+<!-- pages/ai-plan/ai-plan.wxml - AI 智能规划 -->
+<view class="container fade-in">
+  <view class="page-header">
+    <view class="page-title">🤖 AI 智能规划</view>
+    <view class="page-desc">输入你的规划描述，AI 将自动解析为结构化的目标与任务</view>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="input-section card" wx:if="{{!showResult}}">
+    <textarea class="plan-input" placeholder="请描述你的计划...\n\n例如：\n我计划在3个月内学完Python编程，每天学习2小时。\n同时我想每周跑步3次，每次30分钟，坚持到年底。\n下个月要完成工作中的项目报告，需要收集数据、分析整理和撰写三个阶段。"
+      value="{{inputText}}" bindinput="onInput" maxlength="2000"
+      auto-height="{{true}}" />
+    <view class="input-footer flex-between">
+      <view class="char-count">{{inputText.length}}/2000</view>
+      <view class="btn-primary {{loading ? 'loading' : ''}}" bindtap="startParse">
+        {{loading ? '解析中...' : '✨ 智能解析'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载动画 -->
+  <view class="loading-section" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <view class="loading-text">AI 正在理解你的规划...</view>
+    <view class="loading-hint">通常需要 5-15 秒</view>
+  </view>
+
+  <!-- 解析结果 -->
+  <view class="result-section" wx:if="{{showResult && !loading}}">
+    <view class="result-header flex-between">
+      <view class="card-title">📋 解析结果</view>
+      <view class="btn-ghost" bindtap="reParse" style="padding:10rpx 24rpx;font-size:24rpx;">重新输入</view>
+    </view>
+
+    <!-- 解析出的目标 -->
+    <view class="section" wx:if="{{parsedGoals.length > 0}}">
+      <view class="section-title">🎯 识别到 {{parsedGoals.length}} 个目标</view>
+      <view class="parsed-item card" wx:for="{{parsedGoals}}" wx:key="index">
+        <view class="parsed-item-header flex-between">
+          <view class="flex-row" style="gap:12rpx;">
+            <view class="category-badge" style="background:{{item.categoryColor}}">{{item.categoryIcon}}</view>
+            <input class="parsed-title-input" value="{{item.title}}"
+                   bindinput="onGoalTitleEdit" data-index="{{index}}" />
+          </view>
+          <view class="delete-btn" catchtap="deleteGoalItem" data-index="{{index}}">✕</view>
+        </view>
+        <view class="parsed-meta flex-row" style="gap:16rpx;margin-top:12rpx;">
+          <text class="tag tag-primary">{{item.categoryName}}</text>
+          <text class="parsed-date">{{item.startDate}} ~ {{item.endDate}}</text>
+        </view>
+        <view wx:if="{{item.description}}" class="parsed-desc">{{item.description}}</view>
+      </view>
+    </view>
+
+    <!-- 解析出的任务 -->
+    <view class="section" wx:if="{{parsedTasks.length > 0}}">
+      <view class="section-title">📝 识别到 {{parsedTasks.length}} 个任务</view>
+      <view class="parsed-item card" wx:for="{{parsedTasks}}" wx:key="index">
+        <view class="parsed-item-header flex-between">
+          <input class="parsed-title-input flex-1" value="{{item.title}}"
+                 bindinput="onTaskTitleEdit" data-index="{{index}}" />
+          <view class="delete-btn" catchtap="deleteTaskItem" data-index="{{index}}">✕</view>
+        </view>
+        <view class="parsed-meta flex-row" style="gap:16rpx;margin-top:8rpx;">
+          <text class="tag tag-warning" wx:if="{{item.goalTitle}}">{{item.goalTitle}}</text>
+          <text class="parsed-date">{{item.date}}</text>
+          <text wx:if="{{item.startTime}}">{{item.startTime}}-{{item.endTime}}</text>
+          <text class="tag {{item.priority===1?'tag-danger':item.priority===2?'tag-warning':'tag-success'}}">
+            {{item.priority===1?'高':item.priority===2?'中':'低'}}
+          </text>
+          <text wx:if="{{item.isRepeat}}" class="tag tag-primary">重复</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 确认按钮 -->
+    <view class="confirm-section">
+      <view class="btn-primary" style="width:100%;padding:24rpx 0;" bindtap="confirmImport">
+        ✅ 确认导入 ({{parsedGoals.length}}个目标, {{parsedTasks.length}}个任务)
+      </view>
+    </view>
+  </view>
+</view>

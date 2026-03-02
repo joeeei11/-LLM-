@@ -1,0 +1,62 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/daily/daily",
+        "pages/ai-plan/ai-plan",
+        "pages/stats/stats",
+        "pages/profile/profile",
+        "pages/goals/goals",
+        "pages/goal-detail/goal-detail",
+        "pages/weekly/weekly",
+        "pages/yearly/yearly",
+        "pages/feedback/feedback"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTitleText": "PlanMate",
+        "navigationBarTextStyle": "black",
+        "backgroundColor": "#f5f7fa",
+        "backgroundTextStyle": "dark"
+    },
+    "tabBar": {
+        "color": "#999999",
+        "selectedColor": "#4F7CFF",
+        "backgroundColor": "#ffffff",
+        "borderStyle": "white",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "assets/icons/home.png",
+                "selectedIconPath": "assets/icons/home-active.png"
+            },
+            {
+                "pagePath": "pages/daily/daily",
+                "text": "日程",
+                "iconPath": "assets/icons/calendar.png",
+                "selectedIconPath": "assets/icons/calendar-active.png"
+            },
+            {
+                "pagePath": "pages/ai-plan/ai-plan",
+                "text": "AI规划",
+                "iconPath": "assets/icons/ai.png",
+                "selectedIconPath": "assets/icons/ai-active.png"
+            },
+            {
+                "pagePath": "pages/stats/stats",
+                "text": "统计",
+                "iconPath": "assets/icons/stats.png",
+                "selectedIconPath": "assets/icons/stats-active.png"
+            },
+            {
+                "pagePath": "pages/profile/profile",
+                "text": "我的",
+                "iconPath": "assets/icons/profile.png",
+                "selectedIconPath": "assets/icons/profile-active.png"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json",
+    "style": "v2",
+    "lazyCodeLoading": "requiredComponents"
+}

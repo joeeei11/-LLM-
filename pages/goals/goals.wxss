@@ -1,0 +1,54 @@
+/* pages/goals/goals.wxss - Apple 风格 */
+.page-header { margin-bottom: 28rpx; }
+.page-title { font-size: 44rpx; font-weight: 800; letter-spacing: -1rpx; }
+
+.filter-bar { overflow-x: auto; }
+.filter-tag {
+  padding: 14rpx 32rpx;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-xs);
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: 0.3rpx;
+  transition: all 0.2s ease;
+}
+.filter-tag.active {
+  background: var(--primary-gradient);
+  color: #fff;
+  box-shadow: var(--shadow-primary);
+}
+
+.goal-item {
+  padding: 28rpx !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 16rpx;
+  transition: all 0.2s ease;
+}
+.goal-item:active { transform: scale(0.98); }
+
+.goal-cat-icon {
+  width: 60rpx; height: 60rpx; border-radius: 18rpx;
+  display: flex; align-items: center; justify-content: center; font-size: 30rpx;
+}
+.goal-name { font-size: 32rpx; font-weight: 700; margin-bottom: 4rpx; letter-spacing: 0.3rpx; }
+.goal-date { font-size: 24rpx; color: var(--text-quaternary); font-weight: 500; }
+
+.goal-progress-ring {
+  width: 64rpx; height: 64rpx; border-radius: 50%;
+  border: 4rpx solid var(--primary-light);
+  display: flex; align-items: center; justify-content: center;
+}
+.ring-text { font-size: 22rpx; font-weight: 700; color: var(--primary); }
+
+/* 分类选择器 */
+.cat-option {
+  padding: 12rpx 24rpx; border-radius: var(--radius-full);
+  background: var(--bg-input); font-size: 26rpx;
+  border: 2rpx solid transparent; font-weight: 500;
+  transition: all 0.2s ease;
+}
+.cat-option.active { background: var(--primary-light); border-color: var(--primary); }

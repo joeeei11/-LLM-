@@ -1,0 +1,9 @@
+# 微信小程序 
+node_modules/
+miniprogram_npm/
+/dist/
+project.private.config.json
+.DS_Store
+.vscode/
+package-lock.json
+*.log

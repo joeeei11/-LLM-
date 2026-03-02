@@ -1,0 +1,76 @@
+<!-- pages/stats/stats.wxml -->
+<view class="container fade-in">
+  <view class="page-title">📊 数据统计</view>
+
+  <!-- 核心指标 -->
+  <view class="metrics-grid">
+    <view class="metric-card card">
+      <view class="metric-value" style="color:var(--primary);">{{stats.completionRate}}%</view>
+      <view class="metric-label">总完成率</view>
+    </view>
+    <view class="metric-card card">
+      <view class="metric-value" style="color:var(--success);">{{stats.streak}}</view>
+      <view class="metric-label">连续打卡</view>
+    </view>
+    <view class="metric-card card">
+      <view class="metric-value" style="color:var(--warning);">{{stats.completedTasks}}</view>
+      <view class="metric-label">已完成任务</view>
+    </view>
+    <view class="metric-card card">
+      <view class="metric-value" style="color:var(--purple);">{{stats.activeGoals}}</view>
+      <view class="metric-label">进行中目标</view>
+    </view>
+  </view>
+
+  <!-- 近30天完成趋势 -->
+  <view class="card chart-section">
+    <view class="card-title">近30天完成趋势</view>
+    <view class="trend-chart">
+      <view class="trend-bar-row" wx:for="{{trendData}}" wx:key="date">
+        <text class="trend-date">{{item.label}}</text>
+        <view class="trend-bar-bg">
+          <view class="trend-bar-fill" style="width:{{item.rate}}%;"></view>
+        </view>
+        <text class="trend-rate">{{item.rate}}%</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分类统计 -->
+  <view class="card">
+    <view class="card-title" style="margin-bottom:20rpx;">目标分类分布</view>
+    <view wx:if="{{categoryStats.length > 0}}">
+      <view class="cat-stat-item flex-between" wx:for="{{categoryStats}}" wx:key="id">
+        <view class="flex-row" style="gap:12rpx;">
+          <text>{{item.icon}}</text>
+          <text>{{item.name}}</text>
+        </view>
+        <view class="flex-row" style="gap:12rpx;">
+          <view class="cat-bar-bg">
+            <view class="cat-bar-fill" style="width:{{item.percent}}%;background:{{item.color}};"></view>
+          </view>
+          <text style="font-weight:600;font-size:26rpx;width:60rpx;text-align:right;">{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="empty-state" style="padding:40rpx;">
+      <view class="empty-state-text">暂无数据</view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="section" style="margin-top:24rpx;">
+    <view class="card list-item" bindtap="goYearly">
+      <text>📅 年度总览</text>
+      <text style="color:var(--text-hint);">›</text>
+    </view>
+    <view class="card list-item" bindtap="goWeekly">
+      <text>📊 周视图</text>
+      <text style="color:var(--text-hint);">›</text>
+    </view>
+    <view class="card list-item" bindtap="exportData">
+      <text>📤 导出数据</text>
+      <text style="color:var(--text-hint);">›</text>
+    </view>
+  </view>
+</view>

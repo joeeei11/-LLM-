@@ -1,0 +1,160 @@
+<!-- pages/index/index.wxml - 首页 Apple 风格 -->
+<view class="container fade-in">
+  <!-- 顶部问候区 -->
+  <view class="header-section">
+    <view class="greeting-row flex-between">
+      <view>
+        <view class="greeting-text">{{greeting}} 👋</view>
+        <view class="date-text">{{todayDisplay}}</view>
+      </view>
+      <view class="score-ring" bindtap="goToStats">
+        <view class="score-value">{{todayScore}}</view>
+        <view class="score-label">得分</view>
+        <canvas canvas-id="scoreCanvas" class="score-canvas"></canvas>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快速统计 -->
+  <view class="stat-bar flex-between">
+    <view class="stat-item">
+      <view class="stat-num">{{completedCount}}</view>
+      <view class="stat-desc">已完成</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-num">{{pendingCount}}</view>
+      <view class="stat-desc">待完成</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-num">{{streak}}</view>
+      <view class="stat-desc">连续天数</view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick-actions flex-between">
+    <view class="action-btn" bindtap="goToAIPlan">
+      <view class="action-icon">🤖</view>
+      <view class="action-text">AI 规划</view>
+    </view>
+    <view class="action-btn" bindtap="showAddTask">
+      <view class="action-icon">✏️</view>
+      <view class="action-text">新任务</view>
+    </view>
+    <view class="action-btn" bindtap="goToGoals">
+      <view class="action-icon">🎯</view>
+      <view class="action-text">目标</view>
+    </view>
+    <view class="action-btn" bindtap="goToWeekly">
+      <view class="action-icon">📊</view>
+      <view class="action-text">周视图</view>
+    </view>
+  </view>
+
+  <!-- 今日任务 -->
+  <view class="section">
+    <view class="card-header">
+      <view class="card-title">今日待办</view>
+      <view class="card-action" bindtap="goToDaily">查看全部 ›</view>
+    </view>
+
+    <block wx:if="{{todayTasks.length > 0}}">
+      <view class="task-list">
+        <view class="task-item card {{item.done ? 'task-done' : ''}} {{item.priority === 1 ? 'priority-high' : item.priority === 2 ? 'priority-mid' : 'priority-low'}} fade-in stagger-{{index < 5 ? index + 1 : 5}}"
+              wx:for="{{todayTasks}}" wx:key="_id">
+          <view class="task-check {{item.done ? 'checked' : ''}}"
+                catchtap="toggleTaskDone" data-id="{{item._id}}">
+            <view wx:if="{{item.done}}" class="check-icon">✓</view>
+          </view>
+          <view class="task-content flex-1">
+            <view class="task-title {{item.done ? 'line-through' : ''}}">{{item.title}}</view>
+            <view class="task-meta">
+              <text wx:if="{{item.startTime}}" class="task-time">🕐 {{item.startTime}}</text>
+              <text wx:if="{{item.goalTitle}}" class="task-goal tag tag-primary">{{item.goalTitle}}</text>
+            </view>
+          </view>
+          <view class="priority-dot priority-{{item.priority || 3}}"></view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="empty-state">
+      <view class="empty-state-icon">🌤️</view>
+      <view class="empty-state-title">今天是空白的画布</view>
+      <view class="empty-state-text">给自己设定一个小目标\n从「AI 规划」开始，或手动添加任务</view>
+      <view class="btn-primary" style="margin-top:32rpx;" bindtap="goToAIPlan">✨ 开始 AI 规划</view>
+    </view>
+  </view>
+
+  <!-- 进行中的目标 -->
+  <view class="section" wx:if="{{activeGoals.length > 0}}">
+    <view class="card-header">
+      <view class="card-title">进行中</view>
+      <view class="card-action" bindtap="goToGoals">全部 ›</view>
+    </view>
+
+    <view class="goal-scroll">
+      <scroll-view scroll-x class="goal-list" enhanced show-scrollbar="{{false}}">
+        <view class="goal-card" wx:for="{{activeGoals}}" wx:key="_id"
+              bindtap="goToGoalDetail" data-id="{{item._id}}">
+          <view class="goal-icon">{{item.categoryIcon}}</view>
+          <view class="goal-title">{{item.title}}</view>
+          <view class="goal-progress-bar">
+            <view class="goal-progress-fill" style="width: {{item.progress}}%; background: {{item.categoryColor}}"></view>
+          </view>
+          <view class="goal-progress-text">{{item.progress}}%</view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+
+<!-- 新建任务弹窗 -->
+<view class="overlay" wx:if="{{showTaskModal}}" bindtap="hideAddTask"></view>
+<view class="modal" wx:if="{{showTaskModal}}">
+  <view class="modal-title">新建任务</view>
+  <view class="form-group">
+    <input class="input-field" placeholder="今天要做什么？" value="{{newTask.title}}"
+           bindinput="onTaskInput" data-field="title" focus="{{showTaskModal}}" />
+  </view>
+  <view class="form-group">
+    <picker mode="date" value="{{newTask.date}}" bindchange="onTaskDateChange">
+      <view class="input-field flex-between">
+        <text>📅 {{newTask.date || '选择日期'}}</text>
+        <text class="picker-arrow">›</text>
+      </view>
+    </picker>
+  </view>
+  <view class="form-group">
+    <view class="label">优先级</view>
+    <view class="priority-selector flex-row">
+      <view class="priority-option {{newTask.priority === 1 ? 'active' : ''}}"
+            bindtap="setTaskPriority" data-p="1">
+        🔴 高
+      </view>
+      <view class="priority-option {{newTask.priority === 2 ? 'active' : ''}}"
+            bindtap="setTaskPriority" data-p="2">
+        🟡 中
+      </view>
+      <view class="priority-option {{newTask.priority === 3 ? 'active' : ''}}"
+            bindtap="setTaskPriority" data-p="3">
+        🟢 低
+      </view>
+    </view>
+  </view>
+  <view class="form-group" wx:if="{{goalOptions.length > 0}}">
+    <picker value="{{newTask.goalIndex}}" range="{{goalOptions}}" range-key="title"
+            bindchange="onGoalSelect">
+      <view class="input-field flex-between">
+        <text>🎯 {{newTask.goalTitle || '关联目标 (可选)'}}</text>
+        <text class="picker-arrow">›</text>
+      </view>
+    </picker>
+  </view>
+  <view class="modal-actions flex-between">
+    <view class="btn-ghost" bindtap="hideAddTask" style="flex:1;text-align:center;margin-right:16rpx;">取消</view>
+    <view class="btn-primary" bindtap="saveNewTask" style="flex:1;text-align:center;">添加任务</view>
+  </view>
+</view>
